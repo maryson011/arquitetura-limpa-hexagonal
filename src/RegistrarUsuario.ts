@@ -1,5 +1,7 @@
+import Banco from "./Banco"
+
 export default class RegistrarUsuario {
-    usuario: any[] = []
+    private banco = new Banco()
 
     executar(nome: string, email: string, senha: string) {
 
@@ -12,7 +14,7 @@ export default class RegistrarUsuario {
             senha: senhaCripto
         }
 
-        this.usuario.push(usuario)
+        this.banco.inserir(usuario)
         return usuario
     }
 }
