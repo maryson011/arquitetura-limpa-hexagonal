@@ -1,7 +1,6 @@
 
-import Colecao from "./Colecao"
-import InverterSenha from "./InverterSenha"
-import ProvedorCriptografia from "./ProvedorCriptografia"
+import Colecao from "../portas/Colecao"
+import ProvedorCriptografia from "../portas/ProvedorCriptografia"
 
 export default class RegistrarUsuario {
 

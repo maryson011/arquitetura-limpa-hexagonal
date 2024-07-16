@@ -1,11 +1,11 @@
-import Colecao from '../src/Colecao';
-import Banco from '../src/Banco';
-import RegistrarUsuario from '../src/RegistrarUsuario';
-import InverterSenha from '../src/InverterSenha';
-import SenhaComEspaco from '../src/SenhaComEspaco';
+import Colecao from '../src/exemplo/app/portas/Colecao';
+import BancoEmMemoria from '../src/exemplo/adaptadores/BancoEmMemoria';
+import RegistrarUsuario from '../src/exemplo/app/usuario/RegistrarUsuario';
+import InverterSenha from '../src/exemplo/adaptadores/InverterSenha';
+import SenhaComEspaco from '../src/exemplo/adaptadores/SenhaComEspaco';
 
 test('Deve registrar um usuário invertendo a senha', () => {
-    const colecao = new Banco()
+    const colecao = new BancoEmMemoria()
     const provedorCripto = new InverterSenha()
     const casoDeUso = new RegistrarUsuario(colecao, provedorCripto)
     const usuario = casoDeUso.executar(
@@ -19,7 +19,7 @@ test('Deve registrar um usuário invertendo a senha', () => {
     expect(usuario.senha).toBe('4321')
 })
 test('Deve registrar um usuário com senha com espaço', () => {
-    const colecao = new Banco()
+    const colecao = new BancoEmMemoria()
     const provedorCripto = new SenhaComEspaco()
     const casoDeUso = new RegistrarUsuario(colecao, provedorCripto)
     const usuario = casoDeUso.executar(
