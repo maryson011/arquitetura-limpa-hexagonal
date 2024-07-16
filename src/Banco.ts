@@ -1,4 +1,6 @@
-export default class Banco {
+import Colecao from "./Colecao"
+
+export default class Banco implements Colecao{
     private static itens: any[] = []
 
     inserir(item: any) {

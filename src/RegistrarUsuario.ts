@@ -1,9 +1,13 @@
-import Banco from "./Banco"
+
+import Colecao from "./Colecao"
 import InverterSenha from "./InverterSenha"
 
 export default class RegistrarUsuario {
-    private banco = new Banco()
     private inverterSenha = new InverterSenha()
+
+    constructor(
+        private colecao: Colecao
+    ) {}
 
     executar(nome: string, email: string, senha: string) {
 
@@ -16,7 +20,7 @@ export default class RegistrarUsuario {
             senha: senhaCripto
         }
 
-        this.banco.inserir(usuario)
+        this.colecao.inserir(usuario)
         return usuario
     }
 }
