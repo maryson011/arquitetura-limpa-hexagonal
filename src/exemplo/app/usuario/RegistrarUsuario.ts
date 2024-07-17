@@ -12,9 +12,12 @@ export default class RegistrarUsuario {
         private provedorCripto: ProvedorCriptografia
     ) {}
 
-    executar(nome: string, email: string, senha: string): Usuario {
+    async executar(nome: string, email: string, senha: string): Promise<Usuario> {
 
         const senhaCripto = this.provedorCripto.criptografar(senha)
+
+        const usuarioExistente = await this.colecao.buscarPorEmail(email)
+        if(usuarioExistente) throw new Error('Usuário já existe!')
 
         // const usuario: Partial<Usuario> = {
         const usuario: Usuario = {
