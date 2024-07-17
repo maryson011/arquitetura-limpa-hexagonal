@@ -21,3 +21,8 @@ Entendendo o que foi feito até agora:
 - quem é responsável por chamar as implementações 'ColecaoUsuario<I>' & 'ProvedorCriptografia<I>' com seus respectivos adaptadorres é a aplicação, já os testes são responsáveis por disparar os casos de uso (drivers).
 - o uuid que está dentro da aplicação é um peso que é toleravél por ser algo que fica fixo em um unico lugar, ou seja, não será espalhado na aplicação...
 - a API será outro driver para disparar os fluxos..
+
+=======================================
+
+npm i express jsonwebtoken
+npm i -D @types/express @types/jsonwebtoken axios @types/axios
