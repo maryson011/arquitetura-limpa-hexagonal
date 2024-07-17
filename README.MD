@@ -7,3 +7,8 @@ npx ts-jest config:init
 npm run build
 npm i bcrypt
 npm i -D @types/bcrypt
+npm i knex pg
+npm i dotenv
+npm run migrate:make criar_tabela_usuario
+npm run migrate:down
+npm run migrate:up
