@@ -1,12 +1,14 @@
 
-import Colecao from "../portas/Colecao"
-import ProvedorCriptografia from "../portas/ProvedorCriptografia"
+// import Colecao from "../portas/Colecao"
+import ProvedorCriptografia from "./portas/ProvedorCriptografia"
+import ColecaoUsuario from "./portas/ColecaoUsuario"
 import Usuario from "./Usuario"
+import Id from "../shared/Id"
 
 export default class RegistrarUsuario {
 
     constructor(
-        private colecao: Colecao,
+        private colecao: ColecaoUsuario,
         private provedorCripto: ProvedorCriptografia
     ) {}
 
@@ -16,7 +18,7 @@ export default class RegistrarUsuario {
 
         // const usuario: Partial<Usuario> = {
         const usuario: Usuario = {
-            id: `${Math.random()}`,
+            id: Id.gerar(),
             nome,
             email,
             senha: senhaCripto
