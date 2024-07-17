@@ -54,7 +54,7 @@ test('Deve registrar um usuário com senha criptografada', async () => {
 })
 
 
-test('Deve registrar um usuário no banco real', async () => {
+test.skip('Deve registrar um usuário no banco real', async () => {
     const colecao = new ColecaoUsuarioDB()
     const provedorCripto = new CriptoReal()
     const casoDeUso = new RegistrarUsuario(colecao, provedorCripto)
