@@ -1,11 +1,11 @@
 import Colecao from '../src/exemplo/app/portas/Colecao';
 // import BancoEmMemoria from '../src/exemplo/adaptadores/db/BancoEmMemoria';
-import UsuarioEmMemoria from '../src/exemplo/adaptadores/db/UsuarioEmMemoria';
-import RegistrarUsuario from '../src/exemplo/app/usuario/RegistrarUsuario';
-import InverterSenha from '../src/exemplo/adaptadores/auth/InverterSenha';
-import SenhaComEspaco from '../src/exemplo/adaptadores/auth/SenhaComEspaco';
-import CriptoReal from '../src/exemplo/adaptadores/auth/CriptoReal';
-import ColecaoUsuarioDB from '../src/exemplo/adaptadores/db/knex/ColecaoUsuarioDB'
+import UsuarioEmMemoria from '../src/adaptadores/db/UsuarioEmMemoria';
+import RegistrarUsuario from '../src/core/usuario/RegistrarUsuario';
+import InverterSenha from '../src/adaptadores/auth/InverterSenha';
+import SenhaComEspaco from '../src/adaptadores/auth/SenhaComEspaco';
+import CriptoReal from '../src/adaptadores/auth/CriptoReal';
+import ColecaoUsuarioDB from '../src/adaptadores/db/knex/ColecaoUsuarioDB'
 
 test('Deve registrar um usuário invertendo a senha', async () => {
     const colecao = new UsuarioEmMemoria()
@@ -60,16 +60,16 @@ test.skip('Deve registrar um usuário no banco real', async () => {
     const casoDeUso = new RegistrarUsuario(colecao, provedorCripto)
 
     const usuario = await casoDeUso.executar(
-        'Thiago Brito',
-        'thiago@gmail.com',
-        '1111'
+        'Marcelo Brito',
+        'marcelo@gmail.com',
+        '2222'
     )
 
     console.log(usuario.senha)
 
     expect(usuario).toHaveProperty('id')
-    expect(usuario.nome).toBe('Thiago Brito')
-    expect(provedorCripto.comparar('1111', usuario.senha!)).toBeTruthy()
+    expect(usuario.nome).toBe('Marcelo Brito')
+    expect(provedorCripto.comparar('2222', usuario.senha!)).toBeTruthy()
 })
 
 test('Deve lançar erro ao cadastrar usuario já cadastrado', async () => {
