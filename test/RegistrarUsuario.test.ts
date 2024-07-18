@@ -1,11 +1,11 @@
 import Colecao from '../src/exemplo/app/portas/Colecao';
 // import BancoEmMemoria from '../src/exemplo/adaptadores/db/BancoEmMemoria';
-import UsuarioEmMemoria from '../src/adaptadores/db/UsuarioEmMemoria';
+import UsuarioEmMemoria from '../src/adapters/db/UsuarioEmMemoria';
 import RegistrarUsuario from '../src/core/usuario/RegistrarUsuario';
-import InverterSenha from '../src/adaptadores/auth/InverterSenha';
-import SenhaComEspaco from '../src/adaptadores/auth/SenhaComEspaco';
-import CriptoReal from '../src/adaptadores/auth/CriptoReal';
-import ColecaoUsuarioDB from '../src/adaptadores/db/knex/ColecaoUsuarioDB'
+import InverterSenha from '../src/adapters/auth/InverterSenha';
+import SenhaComEspaco from '../src/adapters/auth/SenhaComEspaco';
+import CriptoReal from '../src/adapters/auth/CriptoReal';
+import ColecaoUsuarioDB from '../src/adapters/db/knex/ColecaoUsuarioDB'
 
 test('Deve registrar um usuário invertendo a senha', async () => {
     const colecao = new UsuarioEmMemoria()
