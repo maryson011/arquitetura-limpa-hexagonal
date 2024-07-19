@@ -18,7 +18,7 @@ test('Deve registrar um novo usuário se não existir', async () => {
     }
 })
 
-test('Deve logar com email e senha correntos', async () => {
+test('Deve logar com email e senha corretos', async () => {
     const usuario: Partial<Usuario> = {
         email: 'marcela@email.com',
         senha: '99999'
@@ -26,6 +26,8 @@ test('Deve logar com email e senha correntos', async () => {
     
     const resp = await axios.post(`${baseUrl}/login`, usuario)
     expect(resp.status).toBe(200)
-    expect(resp.data.nome).toBe('Marcela Paz')
+    expect(resp.data.usuario.nome).toBe('Marcela Paz')
+    expect(resp.data.usuario.email).toBe('marcela@email.com')
+    expect(resp.data).toHaveProperty('token')
     
 })

@@ -4,26 +4,29 @@ import ProvedorCriptografia from "./portas/ProvedorCriptografia"
 import ColecaoUsuario from "./portas/ColecaoUsuario"
 import Usuario from "./Usuario"
 import Id from "../shared/Id"
+import CasoDeUso from "../shared/CasoDeUso"
 
-export default class RegistrarUsuario {
+export type Entrada = { nome: string, email: string, senha: string }
+// DTO - data transfer object
+export default class RegistrarUsuario implements CasoDeUso<Entrada, Usuario>{
 
     constructor(
         private colecao: ColecaoUsuario,
         private provedorCripto: ProvedorCriptografia
     ) {}
 
-    async executar(nome: string, email: string, senha: string): Promise<Usuario> {
+    async executar(dto: Entrada ): Promise<Usuario> {
 
-        const senhaCripto = this.provedorCripto.criptografar(senha)
+        const senhaCripto = this.provedorCripto.criptografar(dto.senha)
 
-        const usuarioExistente = await this.colecao.buscarPorEmail(email)
+        const usuarioExistente = await this.colecao.buscarPorEmail(dto.email)
         if(usuarioExistente) throw new Error('Usuário já existe!')
 
         // const usuario: Partial<Usuario> = {
         const usuario: Usuario = {
             id: Id.gerar(),
-            nome,
-            email,
+            nome: dto.nome,
+            email: dto.email,
             senha: senhaCripto
         }
 
