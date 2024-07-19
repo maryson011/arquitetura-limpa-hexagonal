@@ -17,3 +17,15 @@ test('Deve registrar um novo usuário se não existir', async () => {
         expect(e.response.data).toBe('Usuário já existe!')
     }
 })
+
+test('Deve logar com email e senha correntos', async () => {
+    const usuario: Partial<Usuario> = {
+        email: 'marcela@email.com',
+        senha: '99999'
+    }
+    
+    const resp = await axios.post(`${baseUrl}/login`, usuario)
+    expect(resp.status).toBe(200)
+    expect(resp.data.nome).toBe('Marcela Paz')
+    
+})
