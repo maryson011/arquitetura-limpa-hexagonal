@@ -12,6 +12,7 @@ import JwtAdapter from './adapters/auth/JwtAdapter'
 import SalvarTransacao from './core/transacao/SalvarTransacao'
 import SalvarTransacaoController from './controllers/SalvarTransacaoController'
 import UsuarioMiddleware from './controllers/UsuarioMiddleware'
+import ColecaoTransacaoDB from './adapters/db/knex/ColecaoTransacaoDB'
 
 const app = express()
 const port = process.env.PORTA ?? 3001
@@ -40,6 +41,7 @@ new LoginUsuarioController(app, loginUsuario)
 // ------------------------------------------ Rotas autenticadas
 const usuarioMiddleware = UsuarioMiddleware(colecaoUsuario, provedorToken)
 
-const salvarTransacao = new SalvarTransacao()
+const colecaoTransacao = new ColecaoTransacaoDB()
+const salvarTransacao = new SalvarTransacao(colecaoTransacao)
 new SalvarTransacaoController(app, salvarTransacao, usuarioMiddleware)
 
