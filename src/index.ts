@@ -9,6 +9,8 @@ import CriptoReal from './adapters/auth/CriptoReal'
 import LoginUsuario from './core/usuario/LoginUsuario'
 import LoginUsuarioController from './controllers/LoginUsuarioController'
 import JwtAdapter from './adapters/auth/JwtAdapter'
+import SalvarTransacao from './core/transacao/SalvarTransacao'
+import SalvarTransacaoController from './controllers/SalvarTransacaoController'
 
 const app = express()
 const port = process.env.PORTA ?? 3001
@@ -33,4 +35,8 @@ const loginUsuario = new LoginUsuario(
 
 new RegistrarUsuarioController(app, registrarUsuario)
 new LoginUsuarioController(app, loginUsuario)
+
+// ------------------------------------------ Rotas autenticadas
+const salvarTransacao = new SalvarTransacao()
+new SalvarTransacaoController(app, salvarTransacao)
 
