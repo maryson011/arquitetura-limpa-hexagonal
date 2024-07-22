@@ -26,3 +26,7 @@ Entendendo o que foi feito até agora:
 
 npm i express jsonwebtoken
 npm i -D @types/express @types/jsonwebtoken axios @types/axios
+
+
+npm run migrate:make criar_tabela_transacoes
+npm run migrate:up
