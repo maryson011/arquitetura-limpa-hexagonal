@@ -32,3 +32,22 @@ test('Deve alterar uma transação por id', async () => {
         expect(e.response.status).toBe(400)
     }
 })
+
+test('Deve popular com uma lista de transações', async () => {
+    try {
+        const headers = await getAutorizationHeader()
+        const respostas = transacoes.lista.map(async transacao => {
+            const resp = await axios.post(
+                `${baseUrl}/transacao`, 
+                transacao, 
+                headers
+            )
+            return resp.status
+        })
+        const listaDeStatus = await Promise.all(respostas)
+        expect(listaDeStatus.every(s => s===200)).toBe(true)
+    } catch(e: any) {
+        console.log(e.response.data)
+        expect(e.response.status).toBe(400)
+    }
+})

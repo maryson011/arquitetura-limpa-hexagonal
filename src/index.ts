@@ -13,6 +13,8 @@ import SalvarTransacao from './core/transacao/SalvarTransacao'
 import SalvarTransacaoController from './controllers/SalvarTransacaoController'
 import UsuarioMiddleware from './controllers/UsuarioMiddleware'
 import ColecaoTransacaoDB from './adapters/db/knex/ColecaoTransacaoDB'
+import ExtratoMensal from './core/transacao/ExtratoMensal'
+import ExtratoMensaController from './controllers/ExtratoMensaController'
 
 const app = express()
 const port = process.env.PORTA ?? 3001
@@ -42,6 +44,10 @@ new LoginUsuarioController(app, loginUsuario)
 const usuarioMiddleware = UsuarioMiddleware(colecaoUsuario, provedorToken)
 
 const colecaoTransacao = new ColecaoTransacaoDB()
+
 const salvarTransacao = new SalvarTransacao(colecaoTransacao)
+const extratoMensal = new ExtratoMensal(colecaoTransacao)
+
 new SalvarTransacaoController(app, salvarTransacao, usuarioMiddleware)
+new ExtratoMensaController(app, extratoMensal, usuarioMiddleware)
 
