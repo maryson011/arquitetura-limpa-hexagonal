@@ -18,3 +18,17 @@ test('Deve registrar um novo usuário se não existir', async () => {
         expect(e.response.status).toBe(400)
     }
 })
+test('Deve alterar uma transação por id', async () => {
+    try {
+        const headers = await getAutorizationHeader()
+        const resp = await axios.post(
+            `${baseUrl}/transacao/3cf1f688-9370-4a39-b41d-69af8a74b932`, 
+            { ...transacoes.semId, valor: -137.65}, 
+            headers
+        )
+        expect(resp.status).toBe(200)
+    } catch(e: any) {
+        console.log(e.response.data)
+        expect(e.response.status).toBe(400)
+    }
+})
