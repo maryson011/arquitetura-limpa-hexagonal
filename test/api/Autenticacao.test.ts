@@ -5,8 +5,8 @@ const baseUrl = process.env.API_URL
 
 test('Deve registrar um novo usuário se não existir', async () => {
     const usuario: Partial<Usuario> = {
-        nome: 'Marcela Paz',
-        email: 'marcela@email.com',
+        nome: 'Patricia Souza',
+        email: 'patriciasouza@email.com',
         senha: '99999'
     }
     try {
@@ -28,6 +28,7 @@ test('Deve logar com email e senha corretos', async () => {
     expect(resp.status).toBe(200)
     expect(resp.data.usuario.nome).toBe('Marcela Paz')
     expect(resp.data.usuario.email).toBe('marcela@email.com')
+    console.log(resp.data.token)
     expect(resp.data).toHaveProperty('token')
     
 })

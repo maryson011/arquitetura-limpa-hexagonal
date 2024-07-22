@@ -1,6 +1,7 @@
 import CasoDeUso from "../shared/CasoDeUso";
 import ColecaoUsuario from "./portas/ColecaoUsuario";
 import ProvedorCriptografia from "./portas/ProvedorCriptografia";
+import ProvedorToken from "./portas/ProvedorToken";
 import Usuario from "./Usuario";
 
 export type Entrada = { email: string, senha: string }
@@ -8,7 +9,8 @@ export type Saida = { usuario: Usuario, token: string }
 export default class LoginUsuario implements CasoDeUso<Entrada, Saida>{
     constructor(
         private colecao: ColecaoUsuario,
-        private provedorCripto: ProvedorCriptografia
+        private provedorCripto: ProvedorCriptografia,
+        private provedorToken: ProvedorToken
     ){}
 
     async executar(dto: Entrada): Promise<Saida> {
@@ -22,7 +24,11 @@ export default class LoginUsuario implements CasoDeUso<Entrada, Saida>{
         if (!mesmaSenha) throw new Error('Senha incorreta!')
         return {
             usuario: {...usuarioExistente, senha: undefined},
-            token: 'token',
+            token: this.provedorToken.gerar({
+                id: usuarioExistente.id,
+                nome: usuarioExistente.nome,
+                email: usuarioExistente.email
+            }),
         }
     }
 }
