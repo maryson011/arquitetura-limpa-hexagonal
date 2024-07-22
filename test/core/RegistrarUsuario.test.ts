@@ -6,16 +6,17 @@ import InverterSenha from '../../src/adapters/auth/InverterSenha';
 import SenhaComEspaco from '../../src/adapters/auth/SenhaComEspaco';
 import CriptoReal from '../../src/adapters/auth/CriptoReal';
 import ColecaoUsuarioDB from '../../src/adapters/db/knex/ColecaoUsuarioDB'
+import usuarios from '../data/usuarios';
 
 test('Deve registrar um usuário invertendo a senha', async () => {
     const colecao = new UsuarioEmMemoria()
     const provedorCripto = new InverterSenha()
     const casoDeUso = new RegistrarUsuario(colecao, provedorCripto)
-    const usuario = await casoDeUso.executar(
-        'João da Silva',
-        'joão@email.com',
-        '1234'
-    )
+    const usuario = await casoDeUso.executar({
+        nome: usuarios.completo.nome,
+        email: usuarios.completo.email,
+        senha: usuarios.completo.senha!,
+    })
 
     expect(usuario).toHaveProperty('id')
     expect(usuario.nome).toBe('João da Silva')
@@ -25,11 +26,11 @@ test('Deve registrar um usuário com senha com espaço', async () => {
     const colecao = new UsuarioEmMemoria()
     const provedorCripto = new SenhaComEspaco()
     const casoDeUso = new RegistrarUsuario(colecao, provedorCripto)
-    const usuario = await casoDeUso.executar(
-        'João da Silva',
-        'joão@email.com',
-        '1234'
-    )
+    const usuario = await casoDeUso.executar({
+        nome: usuarios.completo.nome,
+        email: usuarios.completo.email,
+        senha: usuarios.completo.senha!,
+    })
 
     expect(usuario).toHaveProperty('id')
     expect(usuario.nome).toBe('João da Silva')
@@ -40,11 +41,11 @@ test('Deve registrar um usuário com senha criptografada', async () => {
     const colecao = new UsuarioEmMemoria()
     const provedorCripto = new CriptoReal()
     const casoDeUso = new RegistrarUsuario(colecao, provedorCripto)
-    const usuario = await casoDeUso.executar(
-        'João da Silva',
-        'joão@email.com',
-        '1234'
-    )
+    const usuario = await casoDeUso.executar({
+        nome: usuarios.completo.nome,
+        email: usuarios.completo.email,
+        senha: usuarios.completo.senha!,
+    })
 
     console.log(usuario.senha)
 
@@ -59,17 +60,17 @@ test.skip('Deve registrar um usuário no banco real', async () => {
     const provedorCripto = new CriptoReal()
     const casoDeUso = new RegistrarUsuario(colecao, provedorCripto)
 
-    const usuario = await casoDeUso.executar(
-        'Marcelo Brito',
-        'marcelo@gmail.com',
-        '2222'
-    )
+    const usuario = await casoDeUso.executar({
+        nome: usuarios.completo.nome,
+        email: usuarios.completo.email,
+        senha: usuarios.completo.senha!,
+    })
 
     console.log(usuario.senha)
 
     expect(usuario).toHaveProperty('id')
-    expect(usuario.nome).toBe('Marcelo Brito')
-    expect(provedorCripto.comparar('2222', usuario.senha!)).toBeTruthy()
+    expect(usuario.nome).toBe('Patricia Souza')
+    expect(provedorCripto.comparar('99999', usuario.senha!)).toBeTruthy()
 })
 
 test('Deve lançar erro ao cadastrar usuario já cadastrado', async () => {
@@ -77,11 +78,11 @@ test('Deve lançar erro ao cadastrar usuario já cadastrado', async () => {
     const provedorCripto = new CriptoReal()
     const casoDeUso = new RegistrarUsuario(colecao, provedorCripto)
 
-    const nome = 'João da Silva'
-    const email = 'joão@email.com'
-    const senha = '1234'
+    const nome = usuarios.completo.nome
+    const email = usuarios.completo.email
+    const senha = usuarios.completo.senha!
 
-    await casoDeUso.executar(nome, email, senha)
-    const exec = async () => await casoDeUso.executar(nome, email, senha)
+    await casoDeUso.executar({ nome, email, senha })
+    const exec = async () => await casoDeUso.executar({ nome, email, senha })
     await expect(exec).rejects.toThrow('Usuário já existe!')
 })
