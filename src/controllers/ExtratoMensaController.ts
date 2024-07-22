@@ -19,6 +19,6 @@ export default class ExtratoMensaController {
                 res.status(400).send(err.message)
             }
         }
-        servidor.post('/extrato/:ano/:mes', middleware, fn)
+        servidor.get('/extrato/:ano/:mes', middleware, fn)
     }
 }

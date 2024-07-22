@@ -51,3 +51,16 @@ test('Deve popular com uma lista de transações', async () => {
         expect(e.response.status).toBe(400)
     }
 })
+test('Deve retornar o extrato mensal + saldo consolidade', async () => {
+    try {
+        const headers = await getAutorizationHeader()
+        const resp = await axios.get(`${baseUrl}/extrato/2021/2`, headers)
+        console.log(resp.data)
+        expect(resp.status).toBe(200)
+        expect(resp.data).toHaveProperty('transacoes')
+        expect(resp.data).toHaveProperty('saldo')
+    } catch(e: any) {
+        console.log(e.response.data)
+        expect(e.response.status).toBe(400)
+    }
+})
